@@ -122,4 +122,4 @@ Both consume the spec in this repo and the JSON Schemas under
 
 ## License
 
-See [LICENSE](LICENSE).
+Apache License 2.0. See [LICENSE](LICENSE).
