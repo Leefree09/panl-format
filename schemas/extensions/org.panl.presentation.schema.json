@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://panl.org/schemas/extensions/org.panl.presentation.schema.json",
+  "title": "org.panl.presentation",
+  "description": "How the comic appears in library / UI. See extensions/official/presentation.md.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schemaVersion"],
+  "properties": {
+    "schemaVersion": {"type": "string"},
+    "coverPage": {"type": "integer", "minimum": 0},
+    "coverThumbnailChunkId": {"type": "string"},
+    "displayTitle": {"type": "string"},
+    "sortTitle": {"type": "string"},
+    "seriesSortTitle": {"type": "string"},
+    "collectionTitle": {"type": ["string", "null"]},
+    "preferredMetadataExtension": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]*\\.[a-z0-9._-]+$"
+    },
+    "custom": {
+      "type": "object",
+      "additionalProperties": {"type": "object"},
+      "propertyNames": {"pattern": "^[a-z][a-z0-9._-]*\\.[a-z0-9._-]+$"}
+    }
+  }
+}

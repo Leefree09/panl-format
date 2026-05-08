@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://panl.org/schemas/extensions/org.panl.preferences.schema.json",
+  "title": "org.panl.preferences",
+  "description": "Default reading behavior for this comic. See extensions/official/preferences.md.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schemaVersion"],
+  "properties": {
+    "schemaVersion": {"type": "string"},
+    "readingDirection": {
+      "type": "string",
+      "enum": ["ltr", "rtl", "ttb", "webtoon", "unknown"]
+    },
+    "startPage": {"type": "integer", "minimum": 0},
+    "spreadMode": {"type": "string", "enum": ["single", "double", "auto"]},
+    "pageFitMode": {"type": "string", "enum": ["best", "width", "height", "original"]},
+    "panelModeDefault": {"type": "boolean"},
+    "preferredPanelExtension": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9._-]*\\.[a-z0-9._-]+$"
+    },
+    "custom": {
+      "type": "object",
+      "additionalProperties": {"type": "object"},
+      "propertyNames": {"pattern": "^[a-z][a-z0-9._-]*\\.[a-z0-9._-]+$"}
+    }
+  }
+}

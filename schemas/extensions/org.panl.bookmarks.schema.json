@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://panl.org/schemas/extensions/org.panl.bookmarks.schema.json",
+  "title": "org.panl.bookmarks",
+  "description": "Per-comic jump targets (bookmarks, chapters, and custom bookmark kinds). See extensions/official/bookmarks.md.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schemaVersion", "entries"],
+  "properties": {
+    "schemaVersion": {"type": "string"},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["id", "kind", "target"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "kind": {"type": "string", "minLength": 1},
+          "label": {"type": "string"},
+          "order": {"type": "integer"},
+          "parentId": {"type": "string", "minLength": 1},
+          "tags": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1}
+          },
+          "custom": {"type": "object", "additionalProperties": true},
+          "target": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "page": {"type": "integer", "minimum": 0},
+              "panelId": {"type": "string", "minLength": 1},
+              "chunkId": {"type": "string", "minLength": 1},
+              "locator": {"type": "object", "additionalProperties": true}
+            },
+            "anyOf": [
+              {"required": ["page"]},
+              {"required": ["chunkId"]},
+              {"required": ["locator"]}
+            ]
+          }
+        }
+      }
+    },
+    "custom": {
+      "type": "object",
+      "additionalProperties": {"type": "object"},
+      "propertyNames": {"pattern": "^[a-z][a-z0-9._-]*\\.[a-z0-9._-]+$"}
+    }
+  }
+}

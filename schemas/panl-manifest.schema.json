@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://panl.org/schemas/panl-manifest.schema.json",
+  "title": "PANL manifest",
+  "description": "JSON payload of the MANI chunk (id 'manifest') in a PANL v1 file.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["format", "version", "pageCount"],
+  "properties": {
+    "format": {
+      "description": "Format identifier. New writers emit 'PANL'; readers MUST also accept 'KPOW' as a legacy alias.",
+      "type": "string",
+      "enum": ["PANL", "KPOW"]
+    },
+    "version": {
+      "type": "object",
+      "required": ["major", "minor"],
+      "properties": {
+        "major": {"type": "integer", "minimum": 1, "maximum": 1},
+        "minor": {"type": "integer", "minimum": 0}
+      }
+    },
+    "pageCount": {"type": "integer", "minimum": 1},
+    "coverPage": {"type": "integer", "minimum": 0},
+    "defaultReadingDirection": {
+      "type": "string",
+      "enum": ["ltr", "rtl", "ttb", "webtoon", "unknown"]
+    },
+    "features": {
+      "type": "object",
+      "additionalProperties": {"type": "boolean"},
+      "properties": {
+        "metadata": {"type": "boolean"},
+        "thumbnails": {"type": "boolean"},
+        "panels": {"type": "boolean"},
+        "tiling": {"type": "boolean"},
+        "dedup": {"type": "boolean"},
+        "deltaCompression": {"type": "boolean"},
+        "smartTileEncoding": {"type": "boolean"},
+        "crossPagePrediction": {"type": "boolean"},
+        "textLayer": {"type": "boolean"}
+      }
+    },
+    "requiredFeatures": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true,
+      "description": "Names of features a reader MUST understand to safely render the file."
+    },
+    "requiredCodecs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["jpeg", "png", "webp", "avif", "jxl", "palette"]
+      },
+      "uniqueItems": true
+    },
+    "storageModes": {
+      "type": "array",
+      "items": {"type": "string", "enum": ["page", "tiled"]},
+      "uniqueItems": true
+    }
+  }
+}

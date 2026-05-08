@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://panl.org/schemas/extensions/org.panl.debug.schema.json",
+  "title": "org.panl.debug",
+  "description": "Shared diagnostics / log extension. See extensions/official/debug.md.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schemaVersion", "entries"],
+  "properties": {
+    "schemaVersion": {"type": "string"},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["id", "createdAtMs", "source", "category", "level", "summary"],
+        "properties": {
+          "id": {"type": "string"},
+          "createdAtMs": {"type": "integer", "minimum": 0},
+          "source": {"type": "string"},
+          "category": {"type": "string"},
+          "level": {
+            "type": "string",
+            "enum": ["trace", "debug", "info", "warning", "error"]
+          },
+          "summary": {"type": "string"},
+          "data": {"type": "object"}
+        }
+      }
+    }
+  }
+}

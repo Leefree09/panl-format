@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://panl.org/schemas/panl-edit.schema.json",
+  "title": "PANL EDIT overlay container",
+  "description": "JSON payload of the EDIT chunk (id 'edit_overlay') in a PANL v1 file. This schema only validates the container; per-extension schemas live under schemas/extensions/.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "extensions"],
+  "properties": {
+    "schemaVersion": {"type": "string"},
+    "updatedAtMs": {"type": "integer", "minimum": 0},
+    "extensions": {
+      "type": "object",
+      "description": "Extension namespace -> extension payload. Keys SHOULD be reverse-domain (e.g. 'org.panl.metadata', 'com.panel-flip'). Validators warn on non-namespaced keys.",
+      "additionalProperties": {"type": "object"},
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9._-]*\\.[a-z0-9._-]+$"
+      }
+    },
+    "extensionManifest": {
+      "type": "object",
+      "description": "Reserved for future use. Writers SHOULD NOT emit this in v1."
+    }
+  }
+}
